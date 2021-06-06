@@ -7,6 +7,7 @@ const axiosInstance = axios.create({
     timeout: 5000
 })
 
+// Cabecera para el CORS
 axiosInstance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
 export default axiosInstance

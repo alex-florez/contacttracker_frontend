@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import TrackerConfig from '@/components/TrackerConfig.vue'
+import TrackerConfig from '@/components/config/TrackerConfig.vue'
 
 export default {
     name: 'Configuration',
