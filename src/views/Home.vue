@@ -1,5 +1,7 @@
 <template>
-  <hello-world />
+  <div>
+    <hello-world />
+  </div>
 </template>
 
 <script>
@@ -9,7 +11,7 @@
     name: 'Home',
 
     components: {
-      HelloWorld,
+      HelloWorld
     },
   }
 </script>

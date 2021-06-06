@@ -6,7 +6,7 @@
             <v-toolbar-title>Contact Tracker</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
+                <v-icon>mdi-airplane</v-icon>
             </v-btn>
         </v-app-bar>
 
@@ -29,14 +29,14 @@
                         <v-list-item-action>
                             <v-icon>mdi-home</v-icon>
                         </v-list-item-action>
-                        <v-list-item-title>Foo</v-list-item-title>
+                        <v-list-item-title>Inicio</v-list-item-title>
                     </v-list-item>
 
-                    <v-list-item :to="'/about'">
+                    <v-list-item :to="'/config'">
                         <v-list-item-action>
-                            <v-icon>mdi-point-of-sale</v-icon>
+                            <v-icon>mdi-cog</v-icon>
                         </v-list-item-action>
-                        <v-list-item-title>Bar</v-list-item-title>
+                        <v-list-item-title>Configuración</v-list-item-title>
                     </v-list-item>
                 </v-list-item-group>
             </v-list>
@@ -50,6 +50,13 @@
             </v-fade-transition>
             </v-container>
         </v-content>
+
+        <!-- FOOTER -->
+        <v-footer padless>
+            <v-card flat tile class="text-center teal lighten-4" width="100%">
+                <v-col class="text-center">2021 - Contact Tracker</v-col>
+            </v-card>
+        </v-footer>
     </v-app>    
 </template>
 
