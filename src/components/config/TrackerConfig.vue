@@ -7,7 +7,7 @@
             <v-row>
                 <v-col sm="2">                   
                     <v-text-field label="Periodo de infectividad" required 
-                        v-model.number="trackerConfigData.param1" 
+                        v-model.number="trackerConfigData.infectivityPeriod" 
                         :rules="positiveNumberRules"
                         suffix="días" append-outer-icon="mdi-information" 
                         @click:append-outer="showInfo('infectivityPeriod')"
@@ -75,7 +75,7 @@ import paramsDescription from './config-params-description.js'
 
     export default {
         data: () => ({
-            dataChanged: false,
+            dataChanged: false, /* Flag que indica si se ha modificado la configuración */
 
             /* Datos de Configuración */
             trackerConfigData: null, /* Datos de configuración del rastreo */
