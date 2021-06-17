@@ -4,26 +4,37 @@
         <h2 id="subtitle">Configurar las opciones de rastreo y la comprobación de contactos de riesgo</h2>
         <v-divider></v-divider>
 
-        <!-- Configuración del Rastreo -->
-        <tracker-config/>
+        <v-tabs>
+            <!-- Configuración del Rastreo -->
+            <v-tab href="#trackerConfig">Rastreo de ubicación</v-tab>
+            <v-tab-item value="trackerConfig">
+                <tracker-config></tracker-config>
+            </v-tab-item>
 
-        <!-- Configuración de la comprobación -->
-
+            <!-- Configuración de la comprobación -->
+            <v-tab href="#riskContactConfig">Comprobación de Contactos</v-tab>
+            <v-tab-item value="riskContactConfig">
+               <risk-contact-config></risk-contact-config>
+            </v-tab-item>
+        </v-tabs>
     </div>
 </template>
 
 <script>
-import TrackerConfig from '@/components/config/TrackerConfig.vue'
+import RiskContactConfig from '../components/config/RiskContactConfig.vue'
+import TrackerConfig from '../components/config/TrackerConfig.vue'
 
 export default {
     name: 'Configuration',
     components: {
-        TrackerConfig
+        TrackerConfig,
+        RiskContactConfig
     }
 }
 </script>
 
-<style scoped>
+<style s
+        RiskContactConfigcoped>
     #subtitle {
         color: grey
     }
