@@ -8,36 +8,11 @@
                 <v-col sm="2">                   
                     <v-text-field label="Periodo de infectividad" required 
                         v-model.number="trackerConfigData.infectivityPeriod" 
-                        :rules="positiveNumberRules"
+                        :rules="[rules.required, rules.positive]"
                         suffix="días" append-outer-icon="mdi-information" 
                         @click:append-outer="showInfo('infectivityPeriod')"
                         v-on:keyup="checkConfigChanged"
                         v-on:keypress="isNumber"></v-text-field>
-                </v-col>
-
-                <v-col sm="3">
-                     <v-text-field label="Otra cosa" required
-                        v-bind="attrs" v-on="on" suffix="metros" append-outer-icon="mdi-information"></v-text-field>
-                </v-col>
-            </v-row>
-        </v-container>
-        </v-card>
-        
-        <!-- Configuración de la comprobación de Contactos de Riesgo -->
-        <h3 class="config-title">Configuración de la comprobación de Contactos de Riesgo</h3>
-        <v-card flat>
-        <v-container fluid>
-            <v-row>
-                <v-col sm="3">                   
-                    <v-text-field label="Placeholder" required
-                        suffix="días" append-outer-icon="mdi-information" 
-                        @click:append-outer="showInfo('asdas')"
-                        v-on:keyup="checkConfigChanged()"></v-text-field>
-                </v-col>
-
-                <v-col sm="3">
-                     <v-text-field label="Placeholder" required
-                        v-bind="attrs" v-on="on" suffix="metros" append-outer-icon="mdi-information"></v-text-field>
                 </v-col>
             </v-row>
         </v-container>
@@ -56,7 +31,7 @@
         </v-card>
 
         <!-- Snackbar para notificaciones -->
-        <v-snackbar v-model="snackbar" :timeout="3000" top width="50%" color="blue">
+        <v-snackbar v-model="snackbar" :timeout="3000" top width="50%" :color="snackBarColor">
             {{ snackbarMessage }}
         </v-snackbar>
 
@@ -73,98 +48,139 @@
 <script>
 import paramsDescription from './config-params-description.js'
 
-    export default {
-        data: () => ({
-            dataChanged: false, /* Flag que indica si se ha modificado la configuración */
+/* Configuración por defecto */
+const INFECTIVITY_PERIOD = 3
 
-            /* Datos de Configuración */
-            trackerConfigData: {
-                infectivityPeriod: 3
-            }, /* Datos de configuración del rastreo */
-            trackerConfigDataBackup: {
-                infectivityPeriod: 3
-            }, /* Backup de configuración del rastreo */
+export default {
+    data: () => ({
+        dataChanged: false, /* Flag que indica si se ha modificado la configuración */
 
-            /* Reglas de los CAMPOS */
-            positiveNumberRules: [
-                f => !!f || "Este campo es obligatorio",
-                f => (f && f >= 0) || "El valor no puede ser negativo"
-            ],
+        /* Datos de Configuración */
+        trackerConfigData: {
+            infectivityPeriod: INFECTIVITY_PERIOD
+        }, /* Datos de configuración del rastreo */
+        trackerConfigDataBackup: {
+            infectivityPeriod: INFECTIVITY_PERIOD
+        }, /* Backup de configuración del rastreo */
 
-            /* Snackbar */
-            snackbar: false,
-            snackbarMessage: "",
-
-            /* Dialog informativo para los parámetros */
-            infoDialog: false,
-            infoDialogContent: {}
-        }),
-
-        created() {
-            // Llamada a la API para recuperar la configuración.
-            this.$configapi.getConfig('tracker-config', (config) => {
-                this.trackerConfigData = config.data
-                this.trackerConfigDataBackup = Object.assign({}, config.data)
-            }, (error) => {console.log(error)})
+        /* Reglas de los CAMPOS */
+        // Números positivos
+        rules: {
+            required: f => !!f || "Este campo es obligatorio",
+            positive: f => (f && f >= 0) || "El valor no puede ser negativo"
         },
 
-        methods: {
-            /**
-             * Invocado al escribir en un Input para evitar
-             * que se escriban caracteres alfabéticos.
-             */
-            isNumber(event) {
-                var charCode = (event.which) ? event.which : event.keyCode
-                if(charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46){
-                    event.preventDefault()
-                } else if(parseInt(charCode) >= 0){
-                    return true
-                } else {
-                    return false
-                }
-            },
+        /* Snackbar */
+        snackbar: false,
+        snackbarMessage: "",
+        snackBarColor: "blue",
 
-            showInfo(paramName) {
-                this.infoDialog = true
-                this.infoDialogContent = paramsDescription[paramName]
-            },
+        /* Dialog informativo para los parámetros */
+        infoDialog: false,
+        infoDialogContent: {}
+    }),
 
-            checkConfigChanged() {
-                var change = false
-                for(let key in this.trackerConfigData){
-                    if(Object.prototype.hasOwnProperty.call(this.trackerConfigData, key)){
-                        let newValue = this.trackerConfigData[key]
-                        let originalValue = this.trackerConfigDataBackup[key]
-                        change = newValue != originalValue
-                        if(change)
-                            break
-                    }
-                }
-                this.dataChanged = change
-            },
+    created() {
+        // Llamada a la API para recuperar la configuración.
+        this.$configapi.getConfig('tracker-config', (config) => {
+            this.trackerConfigData = config.data
+            this.trackerConfigDataBackup = Object.assign({}, config.data)
+        }, (error) => {console.log(error)})
+    },
 
-            saveConfig() {
-                this.$configapi.updateTrackerConfig(this.trackerConfigData, (result) => {
-                    // Actualizar backups
-                    this.trackerConfigDataBackup = Object.assign(this.trackerConfigDataBackup, this.trackerConfigData)
-                    // Esconder botones
-                    this.dataChanged = false
-                    // Mostrar snackbar
-                    this.snackbar = true
-                    this.snackbarMessage = result.data.msg
-                }, (error) => {
-                    console.log(error)
-                    this.snackbar = true
-                    this.snackbarMessage = "Ha habido un error al aplicar los cambios."
-                })
-            },
-            
-            cancel() {
-                this.trackerConfigData = Object.assign(this.trackerConfigData, this.trackerConfigDataBackup) // Restaurar parámetros
-                this.dataChanged = false // Esconder botones
+    methods: {
+        /**
+         * Invocado al escribir en un Input para evitar
+         * que se escriban caracteres alfabéticos.
+         */
+        isNumber(event) {
+            var charCode = (event.which) ? event.which : event.keyCode
+            if(charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46){
+                event.preventDefault()
+            } else if(parseInt(charCode) >= 0){
+                return true
+            } else {
+                return false
             }
+        },
+
+        /**
+         * Muestra la información que explica el significado de 
+         * un parámetro.
+         */
+        showInfo(paramName) {
+            this.infoDialog = true
+            this.infoDialogContent = paramsDescription[paramName]
+        },
+
+        /**
+         * Comprueba si ha cambiado alguno de los parámetros de la 
+         * configuración, para alternar la visibilidad de los botones
+         * de Guardar/Cancelar.
+         */ 
+        checkConfigChanged() {
+            var change = false
+            for(let key in this.trackerConfigData){
+                if(Object.prototype.hasOwnProperty.call(this.trackerConfigData, key)){
+                    let newValue = this.trackerConfigData[key]
+                    let originalValue = this.trackerConfigDataBackup[key]
+                    change = newValue != originalValue
+                    if(change)
+                        break
+                }
+            }
+            this.dataChanged = change
+        },
+
+        /**
+         * Aplica los cambios realizados en la configuración, guardando
+         * los nuevos valores de los parámetros en la base de datos.
+         */
+        saveConfig() {
+            if(this.validateData()){
+                // Llamada a la api
+                this.$configapi.updateTrackerConfig(this.trackerConfigData, (result) => {
+                        // Actualizar backups
+                        this.trackerConfigDataBackup = Object.assign(this.trackerConfigDataBackup, this.trackerConfigData)
+                        // Esconder botones
+                        this.dataChanged = false
+                        // Mostrar snackbar
+                        this.snackbar = true
+                        this.snackbarMessage = result.data.msg
+                    }, (error) => {
+                        console.log(error)
+                        this.snackbar = true
+                        this.snackbarMessage = "Ha habido un error al aplicar los cambios."
+                        this.snackBarColor = "red"
+                })
+            }
+        },
+        
+        /**
+         * Revierte los cambios realizados en la configuración.
+         */
+        cancel() {
+            this.trackerConfigData = Object.assign(this.trackerConfigData, this.trackerConfigDataBackup) // Restaurar parámetros
+            this.dataChanged = false // Esconder botones
+        },
+
+        /**
+         * Se encarga de validar los campos.
+         */
+        validateData() {
+            var data = this.trackerConfigData
+            var valid = true
+            if(data.infectivityPeriod === ""){
+                valid = false
+                this.snackbar = true
+                this.snackbarMessage = "Comprueba que todos los campos sean correctos antes de guardar la configuración."
+                this.snackBarColor = "orange"
+            }
+
+            return valid
         }
     }
+}
 </script>
 
 <style scoped>
