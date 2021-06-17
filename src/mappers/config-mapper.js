@@ -10,9 +10,9 @@ export default {
      */
     toRiskContactConfig: function(config) {
         var result = {
-            exposeTimeWeight: config.exposeTimeWeight,
-            meanProximityWeight: config.meanProximityWeight,
-            meanTimeIntervalWeight: config.meanTimeIntervalWeight,
+            exposeTimeWeight: config.exposeTimeWeight / 100, // Convertir a pesos entre 0 y 1.
+            meanProximityWeight: config.meanProximityWeight / 100,
+            meanTimeIntervalWeight: config.meanTimeIntervalWeight / 100,
             exposeTimeRange: [
                 config.exposeTimeRangeMin * 60 * 1000, // Convertir a milisegundos
                 config.exposeTimeRangeMax * 60 * 1000
@@ -36,9 +36,9 @@ export default {
      */
     fromRiskContactConfig: function(riskContactConfig) {
         var result = {
-            exposeTimeWeight: riskContactConfig.exposeTimeWeight,
-            meanProximityWeight: riskContactConfig.meanProximityWeight,
-            meanTimeIntervalWeight: riskContactConfig.meanTimeIntervalWeight,
+            exposeTimeWeight: riskContactConfig.exposeTimeWeight * 100,  // Convertir a porcentajes
+            meanProximityWeight: riskContactConfig.meanProximityWeight * 100,
+            meanTimeIntervalWeight: riskContactConfig.meanTimeIntervalWeight * 100,
             exposeTimeRangeMin: riskContactConfig.exposeTimeRange[0] / 1000 / 60, // Convertir a minutos
             exposeTimeRangeMax: riskContactConfig.exposeTimeRange[1] / 1000 / 60,
             meanProximityRangeMin: riskContactConfig.meanProximityRange[0],

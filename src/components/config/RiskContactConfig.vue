@@ -242,26 +242,7 @@ export default {
              */
             saveConfig() {
                 if(this.validateData()){
-                    // Construir objeto con la configuración
-                    // var configData = {
-                    //     exposeTimeWeight: this.riskContactConfigData.exposeTimeWeight,
-                    //     meanProximityWeight: this.riskContactConfigData.meanProximityWeight,
-                    //     meanTimeIntervalWeight: this.riskContactConfigData.meanTimeIntervalWeight,
-                    //     exposeTimeRange: [
-                    //         this.riskContactConfigData.exposeTimeRangeMin * 60 * 1000, // Convertir a milisegundos
-                    //         this.riskContactConfigData.exposeTimeRangeMax * 60 * 1000
-                    //     ],
-                    //     meanProximityRange: [
-                    //         this.riskContactConfigData.meanProximityRangeMin,
-                    //         this.riskContactConfigData.meanProximityRangeMax
-                    //     ],
-                    //     meanTimeIntervalRange: [
-                    //         this.riskContactConfigData.meanTimeIntervalRangeMin * 60 * 1000, // Convertir a milisegundos
-                    //         this.riskContactConfigData.meanTimeIntervalRangeMax * 60 * 1000
-                    //     ]
-                    // }
                     var configData = configMapper.toRiskContactConfig(this.riskContactConfigData)
-                    console.log(configData)
                     // Llamada a la api
                     this.$configapi.updateRiskContactConfig(configData, 
                         (result) => { // Éxito
