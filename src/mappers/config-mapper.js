@@ -10,6 +10,8 @@ export default {
      */
     toRiskContactConfig: function(config) {
         var result = {
+            securityDistanceMargin: config.securityDistanceMargin,
+            timeDifferenceMargin: config.timeDifferenceMargin,
             exposeTimeWeight: config.exposeTimeWeight / 100, // Convertir a pesos entre 0 y 1.
             meanProximityWeight: config.meanProximityWeight / 100,
             meanTimeIntervalWeight: config.meanTimeIntervalWeight / 100,
@@ -36,6 +38,8 @@ export default {
      */
     fromRiskContactConfig: function(riskContactConfig) {
         var result = {
+            securityDistanceMargin: riskContactConfig.securityDistanceMargin,
+            timeDifferenceMargin: riskContactConfig.timeDifferenceMargin,
             exposeTimeWeight: riskContactConfig.exposeTimeWeight * 100,  // Convertir a porcentajes
             meanProximityWeight: riskContactConfig.meanProximityWeight * 100,
             meanTimeIntervalWeight: riskContactConfig.meanTimeIntervalWeight * 100,

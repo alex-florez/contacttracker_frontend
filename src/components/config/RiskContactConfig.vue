@@ -1,5 +1,32 @@
 <template>
     <div class="tracker-config">
+        <!-- Márgenes de diferencia -->
+        <h4 class="config-title">Márgenes de cercanía</h4>
+        <v-card flat>
+        <v-container fluid>
+            <v-row>
+                <v-col sm="2">
+                    <v-text-field v-model.number="riskContactConfigData.securityDistanceMargin"
+                        label="Margen de Distancia de Seguridad" required
+                        suffix="m" append-outer-icon="mdi-information"
+                        :rules="[rules.required, rules.positive]"
+                        @click:append-outer="showInfo('infectivityPeriod')"
+                        v-on:keyup="checkConfigChanged()"
+                        v-on:keypress="isNumber"></v-text-field>
+                </v-col>
+                 <v-col sm="2">
+                    <v-text-field v-model.number="riskContactConfigData.timeDifferenceMargin" 
+                        label="Margen de Diferencia Temporal" required
+                        suffix="min" append-outer-icon="mdi-information"
+                        :rules="[rules.required, rules.positive]"
+                        @click:append-outer="showInfo('infectivityPeriod')"
+                        v-on:keyup="checkConfigChanged()"
+                        v-on:keypress="isNumber"></v-text-field>
+                </v-col>
+            </v-row>
+        </v-container>
+        </v-card>
+
          <!-- Porcentajes de peso -->
         <h4 class="config-title">Porcentajes de peso de los parámetros</h4>
         <v-card flat>
@@ -125,6 +152,8 @@ import paramsDescription from './config-params-description.js'
 import configMapper from '../../mappers/config-mapper.js'
 
 /* Configuración por defecto */
+const SECURITY_DISTANCE_MARGIN = 5
+const TIME_DIFFERENCE_MARGIN = 5
 const EXPOSE_TIME_WEIGHT = 30
 const MEAN_PROXIMITY_WEIGHT = 50
 const MEAN_TIME_INTERVAL_WEIGHT = 20
@@ -141,6 +170,8 @@ export default {
 
             /* Datos de Configuración */
             riskContactConfigData: {
+                securityDistanceMargin: SECURITY_DISTANCE_MARGIN,
+                timeDifferenceMargin: TIME_DIFFERENCE_MARGIN,
                 exposeTimeWeight: EXPOSE_TIME_WEIGHT,
                 meanProximityWeight: MEAN_PROXIMITY_WEIGHT,
                 meanTimeIntervalWeight: MEAN_TIME_INTERVAL_WEIGHT,
@@ -152,6 +183,8 @@ export default {
                 meanTimeIntervalRangeMax: MEAN_TIME_INTERVAL_RANGE_MAX
             }, /* Datos de configuración de la comprobación */
             riskContactConfigDataBackup: {
+                securityDistanceMargin: SECURITY_DISTANCE_MARGIN,
+                timeDifferenceMargin: TIME_DIFFERENCE_MARGIN,
                 exposeTimeWeight: EXPOSE_TIME_WEIGHT,
                 meanProximityWeight: MEAN_PROXIMITY_WEIGHT,
                 meanTimeIntervalWeight: MEAN_TIME_INTERVAL_WEIGHT,
