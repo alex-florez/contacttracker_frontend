@@ -122,6 +122,7 @@
 
 <script>
 import paramsDescription from './config-params-description.js'
+import configMapper from '../../mappers/config-mapper.js'
 
 /* Configuración por defecto */
 const EXPOSE_TIME_WEIGHT = 30
@@ -183,9 +184,11 @@ export default {
 
         created() {
             // Llamada a la API para recuperar la configuración.
-            this.$configapi.getConfig('tracker-config', (config) => {
-                this.trackerConfigData = config.data
-                this.trackerConfigDataBackup = Object.assign({}, config.data)
+            this.$configapi.getConfig('risk-contact-config', (config) => {
+                // Mapear el objeto de configuración.
+                var configData = configMapper.fromRiskContactConfig(config.data)
+                this.riskContactConfigData = configData
+                this.riskContactConfigDataBackup = Object.assign({}, configData)
             }, (error) => {console.log(error)})
         },
 
@@ -240,23 +243,25 @@ export default {
             saveConfig() {
                 if(this.validateData()){
                     // Construir objeto con la configuración
-                    var configData = {
-                        exposeTimeWeight: this.riskContactConfigData.exposeTimeWeight,
-                        meanProximityWeight: this.riskContactConfigData.meanProximityWeight,
-                        meanTimeIntervalWeight: this.riskContactConfigData.meanTimeIntervalWeight,
-                        exposeTimeRange: [
-                            this.riskContactConfigData.exposeTimeRangeMin * 60 * 1000, // Convertir a milisegundos
-                            this.riskContactConfigData.exposeTimeRangeMax * 60 * 1000
-                        ],
-                        meanProximityRange: [
-                            this.riskContactConfigData.meanProximityRangeMin,
-                            this.riskContactConfigData.meanProximityRangeMax
-                        ],
-                        meanTimeIntervalRange: [
-                            this.riskContactConfigData.meanTimeIntervalRangeMin * 60 * 1000, // Convertir a milisegundos
-                            this.riskContactConfigData.meanTimeIntervalRangeMax * 60 * 1000
-                        ]
-                    }
+                    // var configData = {
+                    //     exposeTimeWeight: this.riskContactConfigData.exposeTimeWeight,
+                    //     meanProximityWeight: this.riskContactConfigData.meanProximityWeight,
+                    //     meanTimeIntervalWeight: this.riskContactConfigData.meanTimeIntervalWeight,
+                    //     exposeTimeRange: [
+                    //         this.riskContactConfigData.exposeTimeRangeMin * 60 * 1000, // Convertir a milisegundos
+                    //         this.riskContactConfigData.exposeTimeRangeMax * 60 * 1000
+                    //     ],
+                    //     meanProximityRange: [
+                    //         this.riskContactConfigData.meanProximityRangeMin,
+                    //         this.riskContactConfigData.meanProximityRangeMax
+                    //     ],
+                    //     meanTimeIntervalRange: [
+                    //         this.riskContactConfigData.meanTimeIntervalRangeMin * 60 * 1000, // Convertir a milisegundos
+                    //         this.riskContactConfigData.meanTimeIntervalRangeMax * 60 * 1000
+                    //     ]
+                    // }
+                    var configData = configMapper.toRiskContactConfig(this.riskContactConfigData)
+                    console.log(configData)
                     // Llamada a la api
                     this.$configapi.updateRiskContactConfig(configData, 
                         (result) => { // Éxito
