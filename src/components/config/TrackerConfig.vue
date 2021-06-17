@@ -8,7 +8,7 @@
                 <v-col sm="2">                   
                     <v-text-field label="Periodo de infectividad" required 
                         v-model.number="trackerConfigData.infectivityPeriod" 
-                        :rules="[rules.required, rules.positive]"
+                        :rules="[rules.required]"
                         suffix="días" append-outer-icon="mdi-information" 
                         @click:append-outer="showInfo('infectivityPeriod')"
                         v-on:keyup="checkConfigChanged"
@@ -64,7 +64,6 @@ export default {
         }, /* Backup de configuración del rastreo */
 
         /* Reglas de los CAMPOS */
-        // Números positivos
         rules: {
             required: f => !!f || "Este campo es obligatorio",
             positive: f => (f && f >= 0) || "El valor no puede ser negativo"
