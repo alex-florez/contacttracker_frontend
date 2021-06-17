@@ -239,16 +239,36 @@ export default {
              */
             saveConfig() {
                 if(this.validateData()){
+                    // Construir objeto con la configuración
+                    var configData = {
+                        exposeTimeWeight: this.riskContactConfigData.exposeTimeWeight,
+                        meanProximityWeight: this.riskContactConfigData.meanProximityWeight,
+                        meanTimeIntervalWeight: this.riskContactConfigData.meanTimeIntervalWeight,
+                        exposeTimeRange: [
+                            this.riskContactConfigData.exposeTimeRangeMin,
+                            this.riskContactConfigData.exposeTimeRangeMax
+                        ],
+                        meanProximityRange: [
+                            this.riskContactConfigData.meanProximityRangeMin,
+                            this.riskContactConfigData.meanProximityRangeMax
+                        ],
+                        meanTimeIntervalRange: [
+                            this.riskContactConfigData.meanTimeIntervalRangeMin,
+                            this.riskContactConfigData.meanTimeIntervalRangeMax
+                        ]
+                    }
                     // Llamada a la api
-                    this.$configapi.updateTrackerConfig(this.trackerConfigData, (result) => {
+                    this.$configapi.updateRiskContactConfig(configData, 
+                        (result) => { // Éxito
                             // Actualizar backups
-                            this.trackerConfigDataBackup = Object.assign(this.trackerConfigDataBackup, this.trackerConfigData)
+                            this.riskContactConfigDataBackup = Object.assign(this.riskContactConfigDataBackup, this.riskContactConfigData)
                             // Esconder botones
                             this.dataChanged = false
                             // Mostrar snackbar
                             this.snackbar = true
                             this.snackbarMessage = result.data.msg
-                        }, (error) => {
+                            this.snackBarColor = "green"
+                        }, (error) => { // Fracaso
                             console.log(error)
                             this.snackbar = true
                             this.snackbarMessage = "Ha habido un error al aplicar los cambios."

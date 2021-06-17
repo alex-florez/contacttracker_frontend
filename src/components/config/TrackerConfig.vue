@@ -146,6 +146,7 @@ export default {
                         // Mostrar snackbar
                         this.snackbar = true
                         this.snackbarMessage = result.data.msg
+                        this.snackBarColor = "green"
                     }, (error) => {
                         console.log(error)
                         this.snackbar = true

@@ -19,6 +19,19 @@ export default class ContactTrackerConfigApi {
     }
 
     /**
+     * Actualiza la configuración de la comprobación de contactos de riesgo
+     * con los nuevos parámetros de configuración.
+     * @param {object} newConfig JSON con los nuevos parámetros de configuración. 
+     * @param {callback} success Callback de éxito. 
+     * @param {callback} fail Callback de fallo. 
+     */
+    updateRiskContactConfig(newConfig, success, fail) {
+        axios.post('/updateRiskContactConfig', newConfig)
+            .then(success)
+            .catch(fail)
+    }
+
+    /**
      * Hace una petición al backend para recuperar los
      * datos de configuración del fichero de nombre pasado
      * como parámetro.
