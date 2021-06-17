@@ -168,7 +168,7 @@ export default {
                     if(f == "" && f != "0") return "Este campo es obligatorio"
                     if(f >= 0) return true
                 },
-                positive: f => (f >= 0) || "El valor no puede ser negativo"
+                positive: f => (f >= 0) || "El valor no puede ser negativo",
             },
 
             /* Snackbar */
@@ -290,16 +290,29 @@ export default {
              */
             validateData() {
                 var valid = true
+                var message = ""
+                // Validar que no haya ningún campo vacío.
                 for(let key in this.riskContactConfigData){
                     if(Object.prototype.hasOwnProperty.call(this.riskContactConfigData, key)){
                         let value = this.riskContactConfigData[key]
-                        if(value === ""){
+                        if(value === "" || isNaN(value)){
                             valid = false
-                            this.snackbar = true
-                            this.snackbarMessage = "Comprueba que todos los campos sean correctos antes de guardar la configuración."
-                            this.snackBarColor = "orange"
+                            message = "Comprueba que todos los campos sean correctos antes de guardar la configuración."
                         }
                     }  
+                }
+                // Comprobar que la suma de los porcentajes de pesos es del 100 %
+                if(this.riskContactConfigData.exposeTimeWeight + 
+                    this.riskContactConfigData.meanProximityWeight + 
+                    this.riskContactConfigData.meanTimeIntervalWeight != 100){
+                        valid = false
+                        message = "La suma de los porcentajes de peso debe ser del 100 %"
+                    }
+
+                if(!valid){
+                    this.snackbar = true
+                    this.snackbarMessage = message
+                    this.snackBarColor = "orange"
                 }
                 return valid
             }
