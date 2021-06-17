@@ -245,16 +245,16 @@ export default {
                         meanProximityWeight: this.riskContactConfigData.meanProximityWeight,
                         meanTimeIntervalWeight: this.riskContactConfigData.meanTimeIntervalWeight,
                         exposeTimeRange: [
-                            this.riskContactConfigData.exposeTimeRangeMin,
-                            this.riskContactConfigData.exposeTimeRangeMax
+                            this.riskContactConfigData.exposeTimeRangeMin * 60 * 1000, // Convertir a milisegundos
+                            this.riskContactConfigData.exposeTimeRangeMax * 60 * 1000
                         ],
                         meanProximityRange: [
                             this.riskContactConfigData.meanProximityRangeMin,
                             this.riskContactConfigData.meanProximityRangeMax
                         ],
                         meanTimeIntervalRange: [
-                            this.riskContactConfigData.meanTimeIntervalRangeMin,
-                            this.riskContactConfigData.meanTimeIntervalRangeMax
+                            this.riskContactConfigData.meanTimeIntervalRangeMin * 60 * 1000, // Convertir a milisegundos
+                            this.riskContactConfigData.meanTimeIntervalRangeMax * 60 * 1000
                         ]
                     }
                     // Llamada a la api
