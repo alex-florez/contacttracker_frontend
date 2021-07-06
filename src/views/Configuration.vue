@@ -1,14 +1,14 @@
 <template>
     <div class="configuration">
         <h1>Configuración</h1>
-        <h2 id="subtitle">Configurar las opciones de rastreo y la comprobación de contactos de riesgo</h2>
+        <h2 id="subtitle">Configurar las opciones de la notificación de positivos y de la comprobación de contactos de riesgo</h2>
         <v-divider></v-divider>
 
         <v-tabs>
-            <!-- Configuración del Rastreo -->
-            <v-tab href="#trackerConfig">Rastreo de ubicación</v-tab>
-            <v-tab-item value="trackerConfig">
-                <tracker-config></tracker-config>
+            <!-- Configuración de la Notificación de Positivos -->
+            <v-tab href="#notifyConfig">Notificación de Positivos</v-tab>
+            <v-tab-item value="notifyConfig">
+                <notify-config></notify-config>
             </v-tab-item>
 
             <!-- Configuración de la comprobación -->
@@ -22,19 +22,18 @@
 
 <script>
 import RiskContactConfig from '../components/config/RiskContactConfig.vue'
-import TrackerConfig from '../components/config/TrackerConfig.vue'
+import NotifyConfig from '../components/config/NotifyConfig.vue'
 
 export default {
     name: 'Configuration',
     components: {
-        TrackerConfig,
+        NotifyConfig,
         RiskContactConfig
     }
 }
 </script>
 
-<style s
-        RiskContactConfigcoped>
+<style RiskContactConfig scoped>
     #subtitle {
         color: grey
     }

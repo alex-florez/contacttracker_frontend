@@ -1,14 +1,14 @@
 <template>
-    <div class="tracker-config">
+    <div class="notify-config">
         <!-- Configuracion del rastreo -->
-        <h3 class="config-title">Configuración del rastreo</h3>
+        <h3 class="config-title">Configuración de la Notificación de Positivos</h3>
         <v-card flat>
         <v-container fluid>
             <v-row>
                 <v-col sm="2">                   
                     <v-text-field label="Periodo de infectividad" required 
-                        v-model.number="trackerConfigData.infectivityPeriod" 
-                        :rules="[rules.required]"
+                        v-model.number="notifyConfigData.infectivityPeriod" 
+                        :rules="[rules.required, rules.double]"
                         suffix="días" append-outer-icon="mdi-information" 
                         @click:append-outer="showInfo('infectivityPeriod')"
                         v-on:keyup="checkConfigChanged"
@@ -55,18 +55,21 @@ export default {
     data: () => ({
         dataChanged: false, /* Flag que indica si se ha modificado la configuración */
 
-        /* Datos de Configuración */
-        trackerConfigData: {
+         /* Datos de configuración de la notificación */
+        notifyConfigData: {
             infectivityPeriod: INFECTIVITY_PERIOD
-        }, /* Datos de configuración del rastreo */
-        trackerConfigDataBackup: {
+        }, 
+       
+       /* Backup de configuración de la notificación */
+        notifyConfigDataBackup: {
             infectivityPeriod: INFECTIVITY_PERIOD
-        }, /* Backup de configuración del rastreo */
+        }, 
 
         /* Reglas de los CAMPOS */
         rules: {
             required: f => !!f || "Este campo es obligatorio",
-            positive: f => (f && f >= 0) || "El valor no puede ser negativo"
+            positive: f => (f && f >= 0) || "El valor no puede ser negativo",
+            double: f => !Number.isNaN(parseFloat(f)) || "El valor debe ser un número."
         },
 
         /* Snackbar */
@@ -81,9 +84,9 @@ export default {
 
     created() {
         // Llamada a la API para recuperar la configuración.
-        this.$configapi.getConfig('tracker-config', (config) => {
-            this.trackerConfigData = config.data
-            this.trackerConfigDataBackup = Object.assign({}, config.data)
+        this.$configapi.getConfig('notify-config', (config) => {
+            this.notifyConfigData = config.data
+            this.notifyConfigDataBackup = Object.assign({}, config.data)
         }, (error) => {console.log(error)})
     },
 
@@ -119,10 +122,10 @@ export default {
          */ 
         checkConfigChanged() {
             var change = false
-            for(let key in this.trackerConfigData){
-                if(Object.prototype.hasOwnProperty.call(this.trackerConfigData, key)){
-                    let newValue = this.trackerConfigData[key]
-                    let originalValue = this.trackerConfigDataBackup[key]
+            for(let key in this.notifyConfigData){
+                if(Object.prototype.hasOwnProperty.call(this.notifyConfigData, key)){
+                    let newValue = this.notifyConfigData[key]
+                    let originalValue = this.notifyConfigDataBackup[key]
                     change = newValue != originalValue
                     if(change)
                         break
@@ -138,9 +141,9 @@ export default {
         saveConfig() {
             if(this.validateData()){
                 // Llamada a la api
-                this.$configapi.updateTrackerConfig(this.trackerConfigData, (result) => {
+                this.$configapi.updateNotifyConfig(this.notifyConfigData, (result) => {
                         // Actualizar backups
-                        this.trackerConfigDataBackup = Object.assign(this.trackerConfigDataBackup, this.trackerConfigData)
+                        this.notifyConfigDataBackup = Object.assign(this.notifyConfigDataBackup, this.notifyConfigData)
                         // Esconder botones
                         this.dataChanged = false
                         // Mostrar snackbar
@@ -160,7 +163,7 @@ export default {
          * Revierte los cambios realizados en la configuración.
          */
         cancel() {
-            this.trackerConfigData = Object.assign(this.trackerConfigData, this.trackerConfigDataBackup) // Restaurar parámetros
+            this.notifyConfigData = Object.assign(this.notifyConfigData, this.notifyConfigDataBackup) // Restaurar parámetros
             this.dataChanged = false // Esconder botones
         },
 
@@ -168,14 +171,14 @@ export default {
          * Se encarga de validar los campos.
          */
         validateData() {
-            var data = this.trackerConfigData
+            var data = this.notifyConfigData
             var valid = true
-            if(data.infectivityPeriod === ""){
+            if(data.infectivityPeriod === "" || Number.isNaN(parseFloat(data.infectivityPeriod))){
                 valid = false
                 this.snackbar = true
                 this.snackbarMessage = "Comprueba que todos los campos sean correctos antes de guardar la configuración."
                 this.snackBarColor = "orange"
-            }
+            } 
 
             return valid
         }
@@ -184,7 +187,7 @@ export default {
 </script>
 
 <style scoped>
-    .tracker-config {
+    .notify-config {
         margin-top: 32px;
     }
 

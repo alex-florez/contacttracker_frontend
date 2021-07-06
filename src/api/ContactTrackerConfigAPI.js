@@ -6,14 +6,14 @@ import axios from './axios-config.js'
 export default class ContactTrackerConfigApi {
 
     /**
-     * Actualiza la configuración del rastreo con los nuevos parámetros
+     * Actualiza la configuración de la notificación de positivos con los nuevos parámetros
      * de configuración pasados como parámetro.
      * @param {object} newConfig JSON con los nuevos parámetros de configuración.
      * @param {callback} success Callback de éxito.
      * @param {callback} fail Callback de fallo.
      */
-    updateTrackerConfig(newConfig, success, fail) {
-        axios.post('/updateTrackerConfig', newConfig)
+    updateNotifyConfig(newConfig, success, fail) {
+        axios.post('/updateNotifyConfig', newConfig)
             .then(success)
             .catch(fail)
     }
