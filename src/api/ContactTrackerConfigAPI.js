@@ -13,7 +13,7 @@ export default class ContactTrackerConfigApi {
      * @param {callback} fail Callback de fallo.
      */
     updateNotifyConfig(newConfig, success, fail) {
-        axios.post('/updateNotifyConfig', newConfig)
+        axios.post('/config/updateNotifyConfig', newConfig)
             .then(success)
             .catch(fail)
     }
@@ -26,7 +26,7 @@ export default class ContactTrackerConfigApi {
      * @param {callback} fail Callback de fallo. 
      */
     updateRiskContactConfig(newConfig, success, fail) {
-        axios.post('/updateRiskContactConfig', newConfig)
+        axios.post('/config/updateRiskContactConfig', newConfig)
             .then(success)
             .catch(fail)
     }

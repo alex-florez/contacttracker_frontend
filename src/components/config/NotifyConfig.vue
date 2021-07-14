@@ -5,12 +5,24 @@
         <v-card flat>
         <v-container fluid>
             <v-row>
+                <!-- Periodo de Infectividad -->
                 <v-col sm="2">                   
-                    <v-text-field label="Periodo de infectividad" required 
+                    <v-text-field label="Periodo de Infectividad" required 
                         v-model.number="notifyConfigData.infectivityPeriod" 
                         :rules="[rules.required, rules.double]"
                         suffix="días" append-outer-icon="mdi-information" 
                         @click:append-outer="showInfo('infectivityPeriod')"
+                        v-on:keyup="checkConfigChanged"
+                        v-on:keypress="isNumber"></v-text-field>
+                </v-col>
+
+                <!-- Límite de Notificación de positivos -->
+                <v-col sm="2">                   
+                    <v-text-field label="Límite de Notificación (diario)" required 
+                        v-model.number="notifyConfigData.notifyLimit" 
+                        :rules="[rules.required, rules.double]"
+                        suffix="positivos" append-outer-icon="mdi-information" 
+                        @click:append-outer="showInfo('notifyLimit')"
                         v-on:keyup="checkConfigChanged"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
@@ -50,6 +62,7 @@ import paramsDescription from './config-params-description.js'
 
 /* Configuración por defecto */
 const INFECTIVITY_PERIOD = 3
+const NOTIFY_LIMIT = 2
 
 export default {
     data: () => ({
@@ -57,12 +70,14 @@ export default {
 
          /* Datos de configuración de la notificación */
         notifyConfigData: {
-            infectivityPeriod: INFECTIVITY_PERIOD
+            infectivityPeriod: INFECTIVITY_PERIOD,
+            notifyLimit: NOTIFY_LIMIT
         }, 
        
        /* Backup de configuración de la notificación */
         notifyConfigDataBackup: {
-            infectivityPeriod: INFECTIVITY_PERIOD
+            infectivityPeriod: INFECTIVITY_PERIOD,
+            notifyLimit: NOTIFY_LIMIT
         }, 
 
         /* Reglas de los CAMPOS */
@@ -175,13 +190,18 @@ export default {
         validateData() {
             var data = this.notifyConfigData
             var valid = true
-            if(data.infectivityPeriod === "" || Number.isNaN(parseFloat(data.infectivityPeriod))){
+            if(data.infectivityPeriod === "" || Number.isNaN(parseFloat(data.infectivityPeriod)) || data.infectivityPeriod === 0){
                 valid = false
+            } 
+            if(data.notifyLimit === "" || Number.isNaN(parseFloat(data.notifyLimit)) || data.notifyLimit === 0) {
+                valid = false
+            }
+
+            if(!valid) {
                 this.snackbar = true
                 this.snackbarMessage = "Comprueba que todos los campos sean correctos antes de guardar la configuración."
-                this.snackBarColor = "orange"
-            } 
-
+                this.snackBarColor = "orange"   
+            }
             return valid
         }
     }
