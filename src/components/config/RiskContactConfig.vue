@@ -17,7 +17,7 @@
                  <v-col sm="2">
                     <v-text-field v-model.number="riskContactConfigData.timeDifferenceMargin" 
                         label="Margen de Diferencia Temporal" required
-                        suffix="min" append-outer-icon="mdi-information"
+                        suffix="sec" append-outer-icon="mdi-information"
                         :rules="[rules.required, rules.positive]"
                         @click:append-outer="showInfo('infectivityPeriod')"
                         v-on:keyup="checkConfigChanged()"
