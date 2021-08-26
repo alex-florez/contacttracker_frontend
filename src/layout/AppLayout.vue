@@ -38,6 +38,13 @@
                         </v-list-item-action>
                         <v-list-item-title>Configuración</v-list-item-title>
                     </v-list-item>
+
+                    <v-list-item :to="'/statistics'">
+                        <v-list-item-action>
+                            <v-icon>mdi-chart-areaspline</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-title>Estadísticas</v-list-item-title>
+                    </v-list-item>
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
