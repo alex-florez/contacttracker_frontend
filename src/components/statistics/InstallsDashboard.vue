@@ -20,6 +20,9 @@ export default {
     components: {
         HourGlass
     },
+    props: [
+        'lastDays' // N.º de días por defecto para la query de las estadísticas.
+    ], 
     data: () => ({
         installStats: {
             installCount: null
@@ -27,13 +30,24 @@ export default {
     }),
     created() {
         setTimeout(() => {
-            this.$statisticsapi.getInstallStatistics(response => {
+            this.update(this.lastDays)
+        }, 3000)
+     
+    },
+    methods: {
+        /**
+         * Actualiza los valores estadísticos de las instalaciones
+         * en función del número de días a tener en cuenta en el filtro de fecha.
+         * 
+         * Será invocado por el componente padre.
+         */
+        update(lastDays) {
+            this.$statisticsapi.getInstallStatistics(lastDays, response => {
                 this.installStats = response.data
             }, error => {
                 console.log(`Error al recuperar las estadísticas de descargas: ${error}`)
             })
-        }, 3000)
-     
+        }
     }
 }
 </script>

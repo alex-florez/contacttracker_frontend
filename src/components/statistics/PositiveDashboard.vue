@@ -72,6 +72,9 @@ export default {
         SpinLine,
         HourGlass
     },
+    props: [
+        'lastDays' // N.º de días por defecto para recuperar las estadísticas.
+    ],
     data: () => ({
         /* Estadísticas de Positivos */
         positiveStats: {
@@ -83,12 +86,22 @@ export default {
     created() {
         setTimeout(() => {
             /* Cargar estadísticas de positivos */
-            this.$statisticsapi.getPositiveStatistics(response => {
+            this.update(this.lastDays)
+        }, 2000)
+    },
+    methods: {
+        /**
+         * Recibe como parámetro un n.º de días y actualiza
+         * las estadísticas de los positivos con los nuevos valores
+         * recuperados en los últimos días indicados.
+         */
+        update(lastDays) {
+            this.$statisticsapi.getPositiveStatistics(lastDays, response => {
                 this.positiveStats = response.data
             }, error => {
                 console.log(`Error al recuperar las estadísticas de positivos: ${error}`)
             })
-        }, 2000)
+        }
     }
 }
 </script>

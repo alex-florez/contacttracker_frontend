@@ -35,7 +35,7 @@
                             <gauge class="ma-0 pa-0"></gauge>
                         </v-row>
                         <v-row v-else justify="center">
-                            <div class="value">{{ checkStats.exposeTime }}</div>
+                            <div class="value">{{ getMins(checkStats.exposeTime) }} min {{ getSecs(checkStats.exposeTime) }} sec</div>
                         </v-row>
                     </v-col>
                     <v-col sm="2">
@@ -64,6 +64,9 @@ export default {
         HourGlass,
         Gauge
     },
+    props: [
+        'lastDays' // N.º de días por defecto para recuperar las estadísticas.
+    ],
     data: () => ({
         /* Estadísticas de Comprobaciones */
         checkStats: {
@@ -76,12 +79,39 @@ export default {
     created() {
         /* Cargar estadísticas de comprobaciones */
         setTimeout(() => {
-            this.$statisticsapi.getCheckStatistics(response => {
+            this.update(this.lastDays)
+        }, 2000)
+    },
+    methods: {
+        /**
+         * Transforma los milisengundos en minutos, y devuelve
+         * los minutos enteros correspondientes.
+         */
+        getMins(millis) {
+            return Math.trunc(millis / 1000 / 60)
+        },
+
+        /**
+         * Devuelve los segundos correspondientes a los
+         * milisegundos pasados como parámetro.
+         */
+        getSecs(millis) {
+            return Math.trunc((millis / 1000) % 60)
+        },
+
+        /**
+         * Actualiza el Dashboard de resultados de comprobaciones con
+         * los datos estadísticos correspondientes a los días indicados
+         * como parámetro.
+         */
+        update(lastDays) {
+            this.$statisticsapi.getCheckStatistics(lastDays, response => {
                 this.checkStats = response.data
             }, error => {
                 console.log(`Error al recuperar las estadísticas de comprobaciones: ${error}`)
             })
-        }, 2000)
+        }
+
     }
 }
 </script>

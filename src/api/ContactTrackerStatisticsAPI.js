@@ -9,39 +9,45 @@ export default class ContactTrackerStatisticsAPI {
 
     /**
      * Devuelve en el callback de éxito un objeto JSON con las estadísticas
-     * relacionadas con la notificación de positivos, obtenidas del backend.
+     * relacionadas con la notificación de positivos que fueron NOTIFICADOS
+     * en los últimos días pasado como parámetro.
      * 
+     * @param {number} lastDays N.º de días a tener en cuenta para recuperar las estadísticas.
      * @param {callback} success Callback de éxito. 
      * @param {callback} fail Callback de fallo.
      */
-    getPositiveStatistics(success, fail) {
-        axios.get('/statistics/positives')
+    getPositiveStatistics(lastDays, success, fail) {
+        axios.get(`/statistics/positives/${lastDays}`)
             .then(success)
             .catch(fail)
     }
 
     /**
      * Devuelve en el callback de éxito un objeto JSON con las estadísticas
-     * relacionadas con la comprobación de contactos de riesgo.
+     * relacionadas con la comprobación de contactos de riesgo, que fueron realizadas
+     * en los últimos días indicados.
      * 
+     * @param {number} lastDays N.º de días a tener en cuenta para recuperar las estadísticas.
      * @param {callback} success Callback de éxito. 
      * @param {callback} fail Callback de fallo.
      */
-    getCheckStatistics(success, fail) {
-        axios.get('/statistics/checks')
+    getCheckStatistics(lastDays, success, fail) {
+        axios.get(`/statistics/checks/${lastDays}`)
             .then(success)
             .catch(fail)
     }
 
     /**
      * Devuelve en el callback de éxito un objeto JSON con las estadísticas
-     * relacionadas con las descargas/instalaciones de la App móvil.
+     * relacionadas con las descargas/instalaciones de la App móvil registradas
+     * en los últimos días indicados.
      * 
+     * @param {number} lastDays Días a tener en cuenta para recuperar las estadísticas.
      * @param {callback} success Callback de éxito. 
      * @param {callback} fail Callback de fallo.
      */
-    getInstallStatistics(success, fail) {
-        axios.get('/statistics/installs')
+    getInstallStatistics(lastDays, success, fail) {
+        axios.get(`/statistics/installs/${lastDays}`)
             .then(success)
             .catch(fail)
     }
