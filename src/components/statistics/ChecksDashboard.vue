@@ -6,7 +6,10 @@
             <v-container class="mt-4">
                 <v-row>
                     <v-col sm="3" class="mt-2">
-                        <v-row>
+                        <v-row v-if="checkStats.checkCount == null">
+                            <hour-glass></hour-glass>
+                        </v-row>
+                        <v-row v-else>
                             <div class="checks pb-2">{{ checkStats.checkCount }}</div>
                         </v-row>
                         <v-row>
@@ -17,7 +20,10 @@
                         <v-row justify="center" class="mb-2">
                             <div>Riesgo medio</div>
                         </v-row>
-                        <v-row justify="center">
+                        <v-row justify="center" v-if="checkStats.risk == null">
+                            <gauge class="ma-0 pa-0"></gauge>
+                        </v-row>
+                        <v-row v-else justify="center">
                             <div class="value">{{ checkStats.risk }} %</div>
                         </v-row>
                     </v-col>
@@ -25,7 +31,10 @@
                         <v-row justify="center" class="mb-2">
                             <div>Tiempo de exposición</div>
                         </v-row>
-                        <v-row justify="center">
+                        <v-row justify="center" v-if="checkStats.exposeTime == null">
+                            <gauge class="ma-0 pa-0"></gauge>
+                        </v-row>
+                        <v-row v-else justify="center">
                             <div class="value">{{ checkStats.exposeTime }}</div>
                         </v-row>
                     </v-col>
@@ -33,7 +42,10 @@
                         <v-row justify="center" class="mb-2">
                             <div>Proximidad</div>
                         </v-row>
-                        <v-row justify="center">
+                        <v-row justify="center" v-if="checkStats.proximity == null">
+                            <gauge class="ma-0 pa-0"></gauge>
+                        </v-row>
+                        <v-row v-else justify="center">
                             <div class="value">{{ checkStats.proximity }} m</div>
                         </v-row>
                     </v-col>
@@ -44,24 +56,32 @@
 </template>
 
 <script>
+import {HourGlass, Gauge} from 'vue-loading-spinner'
+
 export default {
     name: "ChecksDashboard",
+    components: {
+        HourGlass,
+        Gauge
+    },
     data: () => ({
         /* Estadísticas de Comprobaciones */
         checkStats: {
-            checkCount: 0,
-            risk: 0,
-            exposeTime: 0,
-            proximity: 0
+            checkCount: null,
+            risk: null,
+            exposeTime: null,
+            proximity: null
         }
     }),
     created() {
         /* Cargar estadísticas de comprobaciones */
-        this.$statisticsapi.getCheckStatistics(response => {
-            this.checkStats = response.data
-        }, error => {
-            console.log(`Error al recuperar las estadísticas de comprobaciones: ${error}`)
-        })
+        setTimeout(() => {
+            this.$statisticsapi.getCheckStatistics(response => {
+                this.checkStats = response.data
+            }, error => {
+                console.log(`Error al recuperar las estadísticas de comprobaciones: ${error}`)
+            })
+        }, 2000)
     }
 }
 </script>
