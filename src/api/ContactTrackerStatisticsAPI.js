@@ -51,4 +51,18 @@ export default class ContactTrackerStatisticsAPI {
             .then(success)
             .catch(fail)
     }
+
+
+    /**
+     * Devuelve en el callback de éxito una lista con todos los positivos notificados
+     * desde la aplicación móvil.
+     *  
+     * @param {callback} success Callback de éxito. 
+     * @param {callback} fail Callback de fallo.
+     */
+    getAllNotifiedPositives(success, fail) {
+        axios.get('/positive/getAllPositives')
+            .then(success)
+            .catch(fail)
+    }
 }
