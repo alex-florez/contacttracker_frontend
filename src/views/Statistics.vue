@@ -10,7 +10,7 @@
                     <v-select
                         v-model="select" 
                         filled 
-                        label="Fecha de las estadísticas"
+                        label="Ver estadísticas desde..."
                         :items="selectItems"
                         item-text="text"
                         item-value="days"
