@@ -19,7 +19,7 @@
                         <v-icon>mdi-account</v-icon>
                     </v-btn>
                     <!-- Ver itinerario en el mapa -->
-                    <v-btn icon>
+                    <v-btn icon @click="onItineraryClick">
                         <v-icon>mdi-map-marker-path</v-icon>
                     </v-btn>
                 </v-card-actions>
@@ -52,6 +52,13 @@ export default {
             this.$emit('showPersonalData', this.positive.personalData) // Emitir evento de mostrar datos personales.
         },
 
+        /**
+         * Listener de click para mostrar el itinerario del positivo en un diálogo.
+         */
+        onItineraryClick() {
+            this.$emit('showItinerary') // Emitir un evento de mostrar itinerario.
+        }, 
+        
         /**
          * Devuelve un array con la fecha formateada a 'dd/MM/yyyy'
          * y las horas formateadas a 'HH:mm'.
