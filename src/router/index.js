@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Statistics from '../views/Statistics.vue'
+import Positives from '../views/Positives.vue'
 
 Vue.use(VueRouter)
 
@@ -11,9 +13,19 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/config',
+    name: 'Configuration',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Configuration.vue')
+  },
+  {
+    path: '/statistics',
+    name: 'Statistics',
+    component: Statistics
+  },
+  {
+    path: '/positives',
+    name: 'Positives',
+    component: Positives
   }
 ]
 
