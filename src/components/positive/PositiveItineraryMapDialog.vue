@@ -4,7 +4,7 @@
              <v-container>
                 <v-row>
                     <v-col cols="2">
-                        <v-btn block v-for="date in positive.locationDates" :key="date" @click="refocus(date)">
+                        <v-btn block v-for="date in positive.locationDates" :key="date" @click="refocus(date)" class="mb-3">
                             {{date}}
                         </v-btn>
                     </v-col>
@@ -20,6 +20,8 @@
                                 :path="locations.get(date)" 
                                 :key="date"
                                 :options="{strokeColor: '#FF0000', strokeWeight: '4'}" />
+                            <!-- Marcadores de inicio de ruta -->
+                            <gmap-marker v-for="(d, i) in positive.locationDates" :key="i" :position="locations.get(d)[0]"/>
                         </gmap-map>
                     </v-col>
                 </v-row>
@@ -77,6 +79,19 @@ export default {
             this.locations = hashmap
         },
         /**
+         * Re-establece el foco del mapa (la cámara) para que se centre
+         * en las coordenadas (lat, lng) correspondientes a la primera localización
+         * registrada en el día del itinerario indicado como parámetro.
+         */
+        refocus(locationDate) {
+            let path = this.locations.get(locationDate)
+            if(typeof path !== 'undefined' && path != null && path.length > 0) {
+                // Iniciar smooth transition
+                this.$refs.gmapRef.panTo(path[0])
+            }
+        },
+
+        /**
          * Recibe como parámetro la fecha con formato de milisegundo y 
          * devuelve un array con la fecha formateada a 'yyyy-MM-dd'.
          */
@@ -91,19 +106,6 @@ export default {
                 day = '0' + day
             
             return [year, month, day].join('-')
-        },
-
-        /**
-         * Re-establece el foco del mapa (la cámara) para que se centre
-         * en las coordenadas (lat, lng) correspondientes a la primera localización
-         * registrada en el día del itinerario indicado como parámetro.
-         */
-        refocus(locationDate) {
-            let path = this.locations.get(locationDate)
-            if(typeof path !== 'undefined' && path != null && path.length > 0) {
-                // Iniciar smooth transition
-                this.$refs.gmapRef.panTo(path[0])
-            }
         }
     }
 }
