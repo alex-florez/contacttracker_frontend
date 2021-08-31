@@ -72,8 +72,8 @@ export default {
          * Muestra el itinerario del positivo concreto en un mapa
          * dentro de un diálogo modal.
          */
-        openItineraryDialog() {
-            this.$refs.itineraryDialog.openDialog()
+        openItineraryDialog(positive) {
+            this.$refs.itineraryDialog.openDialog(positive)
         }
     }
 }

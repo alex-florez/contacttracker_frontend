@@ -56,7 +56,7 @@ export default {
          * Listener de click para mostrar el itinerario del positivo en un diálogo.
          */
         onItineraryClick() {
-            this.$emit('showItinerary') // Emitir un evento de mostrar itinerario.
+            this.$emit('showItinerary', this.positive) // Emitir un evento de mostrar itinerario.
         }, 
         
         /**
