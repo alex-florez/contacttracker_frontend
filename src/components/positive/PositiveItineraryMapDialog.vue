@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import DateUtils from '../../util/DateUtils.js'
 
 export default {
     name: 'PositiveItineraryMapDialog',
@@ -65,8 +64,8 @@ export default {
         initLocations(positive) {
             let hashmap = new Map()
             positive.locationDates.forEach(date => { // Por cada fecha de localización
-                let filteredLocations = positive.locations.filter(l => 
-                    DateUtils.formatDate(new Date(l.point.locationTimestamp), "dd/mm/yyyy") == date)
+                //let filteredLocations = positive.locations.filter(l => )
+                let filteredLocations = []
                 let mappedLocations = filteredLocations.map(l => {
                     return {
                         lat: l.point.lat,
@@ -90,6 +89,23 @@ export default {
                 // Iniciar smooth transition
                 this.$refs.gmapRef.panTo(path[0])
             }
+        },
+
+        /**
+         * Recibe como parámetro la fecha con formato de milisegundo y 
+         * devuelve un array con la fecha formateada a 'yyyy-MM-dd'.
+         */
+        formatDate(date) {
+            date = new Date(date) // Convertir milisegundos a fecha.
+            let day = date.getDate() + ''
+            let month = (date.getMonth() + 1) + ''
+            let year = date.getFullYear()
+            if(month.length < 2)
+                month = '0' + month
+            if(day.length < 2)
+                day = '0' + day
+            
+            return [year, month, day].join('-')
         }
     }
 }
