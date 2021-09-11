@@ -1,7 +1,7 @@
 <template>
     <div class="notify-config">
         <!-- Configuracion del rastreo -->
-        <h3 class="config-title">Configuración de la Notificación de Positivos</h3>
+        <h3 class="config-title">Notificación de Positivos</h3>
         <v-card flat>
         <v-container fluid>
             <v-row>
@@ -28,6 +28,24 @@
                 </v-col>
             </v-row>
         </v-container>
+        </v-card>
+        <h3 class="config-title">Notificaciones y mensajes</h3>
+        <div>Configurar las horas de envío de las notificaciones diarias.</div>
+        <v-card flat>
+            <v-container fluid>
+                <v-row>
+                    <!-- Alarma para las notificaciones de positivos -->
+                    <v-col sm="3">
+                        <div class="timepickerTitle">Positivos notificados</div>
+                        <v-time-picker
+                            v-model="notifyConfigData.positivesNotificationTime"
+                            format="24hr"
+                            elevation="8"
+                            v-on:input="checkConfigChanged">
+                        </v-time-picker>
+                    </v-col>
+                </v-row>
+            </v-container>    
         </v-card>
 
         <!-- Botones de Guardar Cambios / Cancelar -->
@@ -63,6 +81,7 @@ import paramsDescription from './config-params-description.js'
 /* Configuración por defecto */
 const INFECTIVITY_PERIOD = 3
 const NOTIFY_LIMIT = 2
+const POSITIVES_NOTIFICATION_TIME = "12:15"
 
 export default {
     data: () => ({
@@ -71,13 +90,15 @@ export default {
          /* Datos de configuración de la notificación */
         notifyConfigData: {
             infectivityPeriod: INFECTIVITY_PERIOD,
-            notifyLimit: NOTIFY_LIMIT
+            notifyLimit: NOTIFY_LIMIT,
+            positivesNotificationTime: POSITIVES_NOTIFICATION_TIME
         }, 
        
        /* Backup de configuración de la notificación */
         notifyConfigDataBackup: {
             infectivityPeriod: INFECTIVITY_PERIOD,
-            notifyLimit: NOTIFY_LIMIT
+            notifyLimit: NOTIFY_LIMIT,
+            positivesNotificationTime: POSITIVES_NOTIFICATION_TIME
         }, 
 
         /* Reglas de los CAMPOS */
@@ -223,5 +244,10 @@ export default {
 
     .buttonRow {
         margin-top: 10px;
+    }
+
+    .timepickerTitle {
+        font-size: 20px;
+        color: grey;
     }
 </style>
