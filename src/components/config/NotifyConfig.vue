@@ -16,13 +16,13 @@
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
 
-                <!-- Límite de Notificación de positivos -->
+                <!-- Tiempo de espera de notificación -->
                 <v-col sm="2">                   
-                    <v-text-field label="Límite de Notificación (diario)" required 
-                        v-model.number="notifyConfigData.notifyLimit" 
+                    <v-text-field label="Tiempo de espera de notificación" required 
+                        v-model.number="notifyConfigData.notifyWaitTime" 
                         :rules="[rules.required, rules.double]"
-                        suffix="positivos" append-outer-icon="mdi-information" 
-                        @click:append-outer="showInfo('notifyLimit')"
+                        suffix="días" append-outer-icon="mdi-information" 
+                        @click:append-outer="showInfo('notifyWaitTime')"
                         v-on:keyup="checkConfigChanged"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
@@ -80,7 +80,7 @@ import paramsDescription from './config-params-description.js'
 
 /* Configuración por defecto */
 const INFECTIVITY_PERIOD = 3
-const NOTIFY_LIMIT = 2
+const NOTIFY_WAIT_TIME = 2
 const POSITIVES_NOTIFICATION_TIME = "12:15"
 
 export default {
@@ -90,14 +90,14 @@ export default {
          /* Datos de configuración de la notificación */
         notifyConfigData: {
             infectivityPeriod: INFECTIVITY_PERIOD,
-            notifyLimit: NOTIFY_LIMIT,
+            notifyWaitTime: NOTIFY_WAIT_TIME,
             positivesNotificationTime: POSITIVES_NOTIFICATION_TIME
         }, 
        
        /* Backup de configuración de la notificación */
         notifyConfigDataBackup: {
             infectivityPeriod: INFECTIVITY_PERIOD,
-            notifyLimit: NOTIFY_LIMIT,
+            notifyWaitTime: NOTIFY_WAIT_TIME,
             positivesNotificationTime: POSITIVES_NOTIFICATION_TIME
         }, 
 
@@ -121,8 +121,10 @@ export default {
     created() {
         // Llamada a la API para recuperar la configuración.
         this.$configapi.getConfig('notify-config', (config) => {
-            this.notifyConfigData = config.data
-            this.notifyConfigDataBackup = Object.assign({}, config.data)
+            if(Object.keys(config.data).length > 0) {
+                this.notifyConfigData = config.data
+                this.notifyConfigDataBackup = Object.assign({}, config.data)
+            }
         }, (error) => {console.log(error)})
     },
 
@@ -214,7 +216,7 @@ export default {
             if(data.infectivityPeriod === "" || Number.isNaN(parseFloat(data.infectivityPeriod)) || data.infectivityPeriod === 0){
                 valid = false
             } 
-            if(data.notifyLimit === "" || Number.isNaN(parseFloat(data.notifyLimit)) || data.notifyLimit === 0) {
+            if(data.notifyWaitTime === "" || Number.isNaN(parseFloat(data.notifyWaitTime)) || data.notifyWaitTime === 0) {
                 valid = false
             }
 
