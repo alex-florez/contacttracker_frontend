@@ -17,7 +17,7 @@ export default class ContactTrackerStatisticsAPI {
      * @param {callback} fail Callback de fallo.
      */
     getPositiveStatistics(lastDays, success, fail) {
-        axios.get(`/statistics/positives/${lastDays}`)
+        axios.get(`/statistics/positives/${Date.now()}/${lastDays}`)
             .then(success)
             .catch(fail)
     }
@@ -32,7 +32,7 @@ export default class ContactTrackerStatisticsAPI {
      * @param {callback} fail Callback de fallo.
      */
     getCheckStatistics(lastDays, success, fail) {
-        axios.get(`/statistics/checks/${lastDays}`)
+        axios.get(`/statistics/checks/${Date.now()}/${lastDays}`)
             .then(success)
             .catch(fail)
     }
@@ -47,7 +47,7 @@ export default class ContactTrackerStatisticsAPI {
      * @param {callback} fail Callback de fallo.
      */
     getInstallStatistics(lastDays, success, fail) {
-        axios.get(`/statistics/installs/${lastDays}`)
+        axios.get(`/statistics/installs/${Date.now()}/${lastDays}`)
             .then(success)
             .catch(fail)
     }

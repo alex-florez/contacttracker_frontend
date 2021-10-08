@@ -54,7 +54,7 @@ export default {
             {text: "Hace dos días", days: 2}, 
             {text: "Hace tres días", days: 3},
             {text: "Hace una semana", days: 7},
-            {text: "Desde el origen de los tiempos", days: -1}],
+            {text: "El origen de los tiempos", days: -1}],
         select: 2 // Por defecto 2 días en el filtro de fechas.
     }),
     methods: {
