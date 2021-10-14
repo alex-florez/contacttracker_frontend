@@ -2,6 +2,7 @@
     <div class="tracker-config">
         <!-- Márgenes de diferencia -->
         <h4 class="config-title">Márgenes de cercanía</h4>
+        <div>Configurar los valores que definen el margen de cercanía para determinar si dos usuarios están en contacto cercano en el tiempo y en el espacio.</div>
         <v-card flat>
         <v-container fluid>
             <v-row>
@@ -29,6 +30,8 @@
 
          <!-- Porcentajes de peso -->
         <h4 class="config-title">Porcentajes de peso de los parámetros</h4>
+        <div>Configurar los porcentajes de ponderación para los parámetros de un contacto de riesgo. Permite definir el nivel de 
+            <br>importancia que se da a cada aspecto de un contacto de riesgo, lo cual influirá en el riesgo calculado.</div>
         <v-card flat>
         <v-container fluid>
             <v-row>
@@ -65,6 +68,9 @@
 
         <!-- Rangos de los parámetros de comprobación -->
         <h4 class="config-title">Rango de valores de los parámetros de comprobación</h4>
+        <div>Permite definir los rangos de valor mínimo y máximo para los parámetros de un contacto de riesgo. Estos rangos sirven
+            <br> para delimitar los valores que pueden tener los parámetros y así poder normalizarlos a valores entre 0 y 1.
+        </div>
         <v-card flat>
         <v-container fluid>
             <div>Tiempo de Exposición (minutos)</div>

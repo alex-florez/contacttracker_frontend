@@ -2,6 +2,7 @@
     <div class="notify-config">
         <!-- Configuracion del rastreo -->
         <h3 class="config-title">Notificación de Positivos</h3>
+        <div>Configurar los parámetros relacionados con la notificación de positivos desde la aplicación móvil.</div>
         <v-card flat>
         <v-container fluid>
             <v-row>
