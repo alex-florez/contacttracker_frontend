@@ -67,7 +67,7 @@
         </v-snackbar>
 
         <!-- Diálogo informativo para los parámetros de configuración -->
-        <v-dialog v-model="infoDialog" width="500">
+        <v-dialog v-model="infoDialog" width="700">
             <v-card>
                 <v-card-title>{{ infoDialogContent[0] }}</v-card-title>
                 <v-card-text>{{ infoDialogContent[1] }}</v-card-text>

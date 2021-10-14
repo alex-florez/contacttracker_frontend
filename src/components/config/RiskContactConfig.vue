@@ -11,7 +11,7 @@
                         label="Margen de Distancia de Seguridad" required
                         suffix="m" append-outer-icon="mdi-information"
                         :rules="[rules.required, rules.positive]"
-                        @click:append-outer="showInfo('infectivityPeriod')"
+                        @click:append-outer="showInfo('securityDistanceMargin')"
                         v-on:keyup="checkConfigChanged()"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
@@ -20,7 +20,7 @@
                         label="Margen de Diferencia Temporal" required
                         suffix="sec" append-outer-icon="mdi-information"
                         :rules="[rules.required, rules.positive]"
-                        @click:append-outer="showInfo('infectivityPeriod')"
+                        @click:append-outer="showInfo('timeDifferenceMargin')"
                         v-on:keyup="checkConfigChanged()"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
@@ -40,7 +40,7 @@
                         label="Peso del Tiempo de Exposición" required
                         suffix="%" append-outer-icon="mdi-information"
                         :rules="[rules.required, rules.positive]"
-                        @click:append-outer="showInfo('infectivityPeriod')"
+                        @click:append-outer="showInfo('exposeTimeWeight')"
                         v-on:keyup="checkConfigChanged()"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
@@ -49,7 +49,7 @@
                         label="Peso de la Proximidad Media" required
                         suffix="%" append-outer-icon="mdi-information"
                         :rules="[rules.required, rules.positive]"
-                        @click:append-outer="showInfo('infectivityPeriod')"
+                        @click:append-outer="showInfo('meanProximityWeight')"
                         v-on:keyup="checkConfigChanged()"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
@@ -58,7 +58,7 @@
                         label="Peso del Intervalo de Tiempo Medio" required
                         :rules="[rules.required, rules.positive]"
                         suffix="%" append-outer-icon="mdi-information" 
-                        @click:append-outer="showInfo('infectivityPeriod')"
+                        @click:append-outer="showInfo('meanTimeIntervalWeight')"
                         v-on:keyup="checkConfigChanged()"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
@@ -144,7 +144,7 @@
         </v-snackbar>
 
         <!-- Diálogo informativo para los parámetros de configuración -->
-        <v-dialog v-model="infoDialog" width="500">
+        <v-dialog v-model="infoDialog" width="700">
             <v-card>
                 <v-card-title>{{ infoDialogContent[0] }}</v-card-title>
                 <v-card-text>{{ infoDialogContent[1] }}</v-card-text>
