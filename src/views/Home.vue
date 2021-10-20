@@ -1,17 +1,17 @@
 <template>
   <div>
-    <hello-world />
+    <welcome />
   </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+  import Welcome from '../components/Welcome.vue'
 
   export default {
     name: 'Home',
 
     components: {
-      HelloWorld
+      Welcome
     },
   }
 </script>

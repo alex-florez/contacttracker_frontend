@@ -1,7 +1,8 @@
 <template>
     <div class="notify-config">
         <!-- Configuracion del rastreo -->
-        <h3 class="config-title">Configuración de la Notificación de Positivos</h3>
+        <h3 class="config-title">Notificación de Positivos</h3>
+        <div>Configurar los parámetros relacionados con la notificación de positivos desde la aplicación móvil.</div>
         <v-card flat>
         <v-container fluid>
             <v-row>
@@ -16,18 +17,36 @@
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
 
-                <!-- Límite de Notificación de positivos -->
+                <!-- Tiempo de espera de notificación -->
                 <v-col sm="2">                   
-                    <v-text-field label="Límite de Notificación (diario)" required 
-                        v-model.number="notifyConfigData.notifyLimit" 
+                    <v-text-field label="Tiempo de espera de notificación" required 
+                        v-model.number="notifyConfigData.notifyWaitTime" 
                         :rules="[rules.required, rules.double]"
-                        suffix="positivos" append-outer-icon="mdi-information" 
-                        @click:append-outer="showInfo('notifyLimit')"
+                        suffix="días" append-outer-icon="mdi-information" 
+                        @click:append-outer="showInfo('notifyWaitTime')"
                         v-on:keyup="checkConfigChanged"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
             </v-row>
         </v-container>
+        </v-card>
+        <h3 class="config-title">Notificaciones y mensajes</h3>
+        <div>Configurar las horas de envío de las notificaciones diarias.</div>
+        <v-card flat>
+            <v-container fluid>
+                <v-row>
+                    <!-- Alarma para las notificaciones de positivos -->
+                    <v-col sm="3">
+                        <div class="timepickerTitle">Positivos notificados</div>
+                        <v-time-picker
+                            v-model="notifyConfigData.positivesNotificationTime"
+                            format="24hr"
+                            elevation="8"
+                            v-on:input="checkConfigChanged">
+                        </v-time-picker>
+                    </v-col>
+                </v-row>
+            </v-container>    
         </v-card>
 
         <!-- Botones de Guardar Cambios / Cancelar -->
@@ -48,7 +67,7 @@
         </v-snackbar>
 
         <!-- Diálogo informativo para los parámetros de configuración -->
-        <v-dialog v-model="infoDialog" width="500">
+        <v-dialog v-model="infoDialog" width="700">
             <v-card>
                 <v-card-title>{{ infoDialogContent[0] }}</v-card-title>
                 <v-card-text>{{ infoDialogContent[1] }}</v-card-text>
@@ -62,7 +81,8 @@ import paramsDescription from './config-params-description.js'
 
 /* Configuración por defecto */
 const INFECTIVITY_PERIOD = 3
-const NOTIFY_LIMIT = 2
+const NOTIFY_WAIT_TIME = 2
+const POSITIVES_NOTIFICATION_TIME = "12:15"
 
 export default {
     data: () => ({
@@ -71,13 +91,15 @@ export default {
          /* Datos de configuración de la notificación */
         notifyConfigData: {
             infectivityPeriod: INFECTIVITY_PERIOD,
-            notifyLimit: NOTIFY_LIMIT
+            notifyWaitTime: NOTIFY_WAIT_TIME,
+            positivesNotificationTime: POSITIVES_NOTIFICATION_TIME
         }, 
        
        /* Backup de configuración de la notificación */
         notifyConfigDataBackup: {
             infectivityPeriod: INFECTIVITY_PERIOD,
-            notifyLimit: NOTIFY_LIMIT
+            notifyWaitTime: NOTIFY_WAIT_TIME,
+            positivesNotificationTime: POSITIVES_NOTIFICATION_TIME
         }, 
 
         /* Reglas de los CAMPOS */
@@ -100,8 +122,10 @@ export default {
     created() {
         // Llamada a la API para recuperar la configuración.
         this.$configapi.getConfig('notify-config', (config) => {
-            this.notifyConfigData = config.data
-            this.notifyConfigDataBackup = Object.assign({}, config.data)
+            if(Object.keys(config.data).length > 0) {
+                this.notifyConfigData = config.data
+                this.notifyConfigDataBackup = Object.assign({}, config.data)
+            }
         }, (error) => {console.log(error)})
     },
 
@@ -193,7 +217,7 @@ export default {
             if(data.infectivityPeriod === "" || Number.isNaN(parseFloat(data.infectivityPeriod)) || data.infectivityPeriod === 0){
                 valid = false
             } 
-            if(data.notifyLimit === "" || Number.isNaN(parseFloat(data.notifyLimit)) || data.notifyLimit === 0) {
+            if(data.notifyWaitTime === "" || Number.isNaN(parseFloat(data.notifyWaitTime)) || data.notifyWaitTime === 0) {
                 valid = false
             }
 
@@ -223,5 +247,10 @@ export default {
 
     .buttonRow {
         margin-top: 10px;
+    }
+
+    .timepickerTitle {
+        font-size: 20px;
+        color: grey;
     }
 </style>

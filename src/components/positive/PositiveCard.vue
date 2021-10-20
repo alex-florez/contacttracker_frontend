@@ -5,8 +5,8 @@
             <v-col cols="10">
                 <v-card-title>{{ positive.positiveCode }}</v-card-title>
                 <v-card-subtitle>Notificado el 
-                    <span class="time">{{ timestamp[0] }}</span> a las 
-                    <span class="time">{{ timestamp[1] }}</span>
+                    <span class="time">{{ date }}</span> a las 
+                    <span class="time">{{ hour }}</span>
                 </v-card-subtitle>
                 <v-card-text>
                     <span class="locations">{{ positive.locations.length }}</span> localizaciones registradas.
@@ -36,12 +36,15 @@
 </template>
 
 <script>
+import DateUtils from '../../util/DateUtils.js'
+
 export default {
     name: 'PositiveCard',
     props: ['positive'],
     data: function() {
         return {
-            timestamp: this.formatDate(this.positive.timestamp)
+            date: DateUtils.formatDate(this.positive.timestamp, "dd/mm/yyyy"), 
+            hour: DateUtils.formatDate(this.positive.timestamp, "HH:MM")
         }
     },
     methods: {
@@ -57,33 +60,6 @@ export default {
          */
         onItineraryClick() {
             this.$emit('showItinerary', this.positive) // Emitir un evento de mostrar itinerario.
-        }, 
-        
-        /**
-         * Devuelve un array con la fecha formateada a 'dd/MM/yyyy'
-         * y las horas formateadas a 'HH:mm'.
-         */
-        formatDate(date) {
-            let formattedDate = []
-            // Fecha
-            let day = date.getDate() + ''
-            let month = (date.getMonth() + 1) + ''
-            let year = date.getFullYear()
-            if(month.length < 2)
-                month = '0' + month
-            if(day.length < 2)
-                day = '0' + day
-            formattedDate.push([day, month, year].join('/'))
-            // Hora
-            let hours = date.getHours() + ''
-            let mins = date.getMinutes() + ''
-            if(hours.length < 2)
-                hours = '0' + hours
-            if(mins.length < 2)
-                mins = '0' + mins
-            formattedDate.push([hours, mins].join(':'))
-
-            return formattedDate
         }
     }
 }
