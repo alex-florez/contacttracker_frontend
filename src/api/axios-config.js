@@ -3,7 +3,7 @@ import axios from 'axios'
  * Configuración de AXIOS para las peticiones a la API.
  */
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 5000
 })
 

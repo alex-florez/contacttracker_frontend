@@ -3,7 +3,6 @@
         <h1>Configuración</h1>
         <h2 id="subtitle">Configurar las opciones de la notificación de positivos y de la comprobación de contactos de riesgo</h2>
         <v-divider></v-divider>
-
         <v-tabs>
             <!-- Configuración de la Notificación de Positivos -->
             <v-tab href="#notifyConfig">Notificación de Positivos</v-tab>
