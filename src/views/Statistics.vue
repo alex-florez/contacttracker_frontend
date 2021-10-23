@@ -19,15 +19,15 @@
             </v-row>
             <!-- Dashboards -->
             <v-row>
-                <v-col lg="5">
+                <v-col lg="6">
                     <positive-dashboard ref="positives" :lastDays="select"></positive-dashboard>
                 </v-col>
-                <v-col lg="3">
+                <v-col lg="4">
                     <installs-dashboard ref="installs" :lastDays="select"></installs-dashboard>
                 </v-col>
             </v-row>
             <v-row>
-                <v-col lg="5">
+                <v-col lg="7">
                     <checks-dashboard ref="checks" :lastDays="select"></checks-dashboard>
                 </v-col>
             </v-row>

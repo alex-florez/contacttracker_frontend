@@ -16,7 +16,7 @@
                             <div>comprobaciones</div>
                         </v-row>
                     </v-col>
-                    <v-col sm="2">
+                    <v-col sm="3">
                         <v-row justify="center" class="mb-2">
                             <div>Riesgo medio</div>
                         </v-row>
@@ -27,7 +27,7 @@
                             <div class="value">{{ checkStats.risk }} %</div>
                         </v-row>
                     </v-col>
-                    <v-col sm="5">
+                    <v-col sm="4">
                         <v-row justify="center" class="mb-2">
                             <div>Tiempo de exposición</div>
                         </v-row>

@@ -6,7 +6,7 @@
         <v-card flat>
         <v-container fluid>
             <v-row>
-                <v-col sm="2">
+                <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.securityDistanceMargin"
                         label="Margen de Distancia de Seguridad" required
                         suffix="m" append-outer-icon="mdi-information"
@@ -15,7 +15,7 @@
                         v-on:keyup="checkConfigChanged()"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
-                 <v-col sm="2">
+                 <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.timeDifferenceMargin" 
                         label="Margen de Diferencia Temporal" required
                         suffix="sec" append-outer-icon="mdi-information"
@@ -35,7 +35,7 @@
         <v-card flat>
         <v-container fluid>
             <v-row>
-                <v-col sm="2">
+                <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.exposeTimeWeight"
                         label="Peso del Tiempo de Exposición" required
                         suffix="%" append-outer-icon="mdi-information"
@@ -44,7 +44,7 @@
                         v-on:keyup="checkConfigChanged()"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
-                 <v-col sm="2">
+                 <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.meanProximityWeight" 
                         label="Peso de la Proximidad Media" required
                         suffix="%" append-outer-icon="mdi-information"
@@ -53,7 +53,7 @@
                         v-on:keyup="checkConfigChanged()"
                         v-on:keypress="isNumber"></v-text-field>
                 </v-col>
-                 <v-col sm="2">
+                 <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.meanTimeIntervalWeight" 
                         label="Peso del Intervalo de Tiempo Medio" required
                         :rules="[rules.required, rules.positive]"
@@ -75,14 +75,14 @@
         <v-container fluid>
             <div>Tiempo de Exposición (minutos)</div>
             <v-row>
-                <v-col sm="2">
+                <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.exposeTimeRangeMin"
                     label="Mínimo" required suffix="min"
                     :rules="[rules.required, rules.positive]" v-on:keypress="isNumber"
                     v-on:keyup="checkConfigChanged()"></v-text-field>
                 </v-col>
 
-                <v-col sm="2">
+                <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.exposeTimeRangeMax" 
                     label="Máximo" required suffix="min"
                     :rules="[rules.required, rules.positive]" v-on:keypress="isNumber"
@@ -92,14 +92,14 @@
 
             <div>Proximidad Media (metros)</div>
             <v-row>
-                <v-col sm="2">
+                <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.meanProximityRangeMin"
                     label="Mínimo" required suffix="m"
                     :rules="[rules.required, rules.positive]" v-on:keypress="isNumber"
                     v-on:keyup="checkConfigChanged()"></v-text-field>
                 </v-col>
 
-                <v-col sm="2">
+                <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.meanProximityRangeMax"
                     label="Máximo" required suffix="m"
                     :rules="[rules.required, rules.positive]" v-on:keypress="isNumber"
@@ -109,14 +109,14 @@
 
             <div>Intervalo de Tiempo Medio (minutos)</div>
             <v-row>
-                <v-col sm="2">
+                <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.meanTimeIntervalRangeMin"
                     label="Mínimo" required suffix="min"
                     :rules="[rules.required, rules.positive]" v-on:keypress="isNumber"
                     v-on:keyup="checkConfigChanged()"></v-text-field> 
                 </v-col>
 
-                <v-col sm="2">
+                <v-col sm="3">
                     <v-text-field v-model.number="riskContactConfigData.meanTimeIntervalRangeMax"
                     label="Máximo" required suffix="min"
                     :rules="[rules.required, rules.positive]" v-on:keypress="isNumber"

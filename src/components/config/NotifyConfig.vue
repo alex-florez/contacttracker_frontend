@@ -7,7 +7,7 @@
         <v-container fluid>
             <v-row>
                 <!-- Periodo de Infectividad -->
-                <v-col sm="2">                   
+                <v-col sm="3">                   
                     <v-text-field label="Periodo de Infectividad" required 
                         v-model.number="notifyConfigData.infectivityPeriod" 
                         :rules="[rules.required, rules.double]"
@@ -18,7 +18,7 @@
                 </v-col>
 
                 <!-- Tiempo de espera de notificación -->
-                <v-col sm="2">                   
+                <v-col sm="3">                   
                     <v-text-field label="Tiempo de espera de notificación" required 
                         v-model.number="notifyConfigData.notifyWaitTime" 
                         :rules="[rules.required, rules.double]"

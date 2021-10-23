@@ -6,7 +6,7 @@
         <v-container fluid class="pt-2">
             <v-row align="end">
                 <!-- Positivos notificados -->
-                <v-col sm="4">
+                <v-col sm="5">
                     <v-container fluid class="pa-0 ma-0">
                         <v-row class="mb-2" v-if="positiveStats.positiveCount == null">
                             <hour-glass></hour-glass>
@@ -21,7 +21,7 @@
                 </v-col>
                 <v-divider vertical></v-divider>
                 <!-- Vacunados / No Vacunados -->
-                <v-col sm="6">
+                <v-col sm="7">
                     <v-container fluid class="pa-0 ma-0 ml-2">
                         <!-- Vacunados / No vacunados -->
                         <v-row align="center" justify="end">
