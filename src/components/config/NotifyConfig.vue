@@ -253,4 +253,8 @@ export default {
         font-size: 20px;
         color: grey;
     }
+
+    .claseDePrueba {
+        color: blue;
+    }
 </style>

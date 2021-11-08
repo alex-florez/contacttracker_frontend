@@ -51,8 +51,8 @@ export default {
         setTimeout(() => {
             this.$statisticsapi.getAllNotifiedPositives(response => {
                 let positives = response.data
-                // Convertir los strings a fechas
-                positives.forEach(p => p.timestamp = new Date(Date.parse(p.timestamp)))
+                // Convertir los timestamps de milisegundos a fechas
+                positives.forEach(p => p.timestamp = new Date(p.timestamp))
                 this.positives = positives
             }, error => {
                 console.log(`Error al obtener los positivos notificados: ${error}`)

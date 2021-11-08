@@ -12,7 +12,7 @@
 
       <v-col cols="12" class="mb-8">
         <h1 class="display-2 font-weight-bold mb-3">
-          Bienvenido a Contact Tracker Web
+          Bienvenid@ a Contact Tracker Web
         </h1>
 
         <p class="subheading font-weight-regular">
