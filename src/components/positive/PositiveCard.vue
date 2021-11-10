@@ -2,7 +2,7 @@
     <v-card class="mb-4 ma-0 pa-0">
         <!-- Datos generales del positivo -->
         <v-row class="pa-0">
-            <v-col cols="10">
+            <v-col cols="9">
                 <v-card-title>{{ positive.positiveCode }}</v-card-title>
                 <v-card-subtitle>Notificado el 
                     <span class="time">{{ date }}</span> a las 
@@ -25,10 +25,10 @@
                 </v-card-actions>
             </v-col>
             <!-- Etiquetas de Vacunado y Asintomático -->
-            <v-col cols="2">
-                <v-card-title class="justify-end">
-                    <span class="vaccinated" v-if="positive.vaccinated">Vacunado</span>
-                    <span class="asymptomatic" v-if="positive.asymptomatic">Asintomático</span>
+            <v-col cols="3">
+                <v-card-title class="d-flex flex-column align-end">
+                    <div class="vaccinated" v-if="positive.vaccinated">Vacunado</div>
+                    <div class="asymptomatic" v-if="positive.asymptomatic">Asintomático</div>
                 </v-card-title>
             </v-col>
         </v-row>

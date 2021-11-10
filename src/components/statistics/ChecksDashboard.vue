@@ -40,7 +40,7 @@
                     </v-col>
                     <v-col sm="2">
                         <v-row justify="center" class="mb-2">
-                            <div>Proximidad</div>
+                            <div>Proximidad media</div>
                         </v-row>
                         <v-row justify="center" v-if="checkStats.proximity == null">
                             <gauge class="ma-0 pa-0"></gauge>
