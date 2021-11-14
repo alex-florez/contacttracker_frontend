@@ -40,9 +40,9 @@ export default {
         var result = {
             securityDistanceMargin: riskContactConfig.securityDistanceMargin,
             timeDifferenceMargin: riskContactConfig.timeDifferenceMargin,
-            exposeTimeWeight: riskContactConfig.exposeTimeWeight * 100,  // Convertir a porcentajes
-            meanProximityWeight: riskContactConfig.meanProximityWeight * 100,
-            meanTimeIntervalWeight: riskContactConfig.meanTimeIntervalWeight * 100,
+            exposeTimeWeight: Math.round((riskContactConfig.exposeTimeWeight * 100) * 100) / 100,  // Convertir a porcentajes redondeados
+            meanProximityWeight: Math.round((riskContactConfig.meanProximityWeight * 100) * 100) / 100,
+            meanTimeIntervalWeight: Math.round((riskContactConfig.meanTimeIntervalWeight * 100) * 100) / 100,
             exposeTimeRangeMin: riskContactConfig.exposeTimeRange[0] / 1000 / 60, // Convertir a minutos
             exposeTimeRangeMax: riskContactConfig.exposeTimeRange[1] / 1000 / 60,
             meanProximityRangeMin: riskContactConfig.meanProximityRange[0],
