@@ -1,3 +1,4 @@
+<!-- VISTA del listado de positivos notificados -->
 <template>
     <div class="positives">
         <h1>Positivos</h1>
@@ -48,16 +49,14 @@ export default {
     }),
     created() {
         /* Cuando se haya creado el componente, cargar los positivos notificados */
-        setTimeout(() => {
-            this.$statisticsapi.getAllNotifiedPositives(response => {
-                let positives = response.data
-                // Convertir los timestamps de milisegundos a fechas
-                positives.forEach(p => p.timestamp = new Date(p.timestamp))
-                this.positives = positives
-            }, error => {
-                console.log(`Error al obtener los positivos notificados: ${error}`)
-            })
-        }, 3000)
+        this.$statisticsapi.getAllNotifiedPositives(response => {
+            let positives = response.data
+            // Convertir los timestamps de milisegundos a fechas
+            positives.forEach(p => p.timestamp = new Date(p.timestamp))
+            this.positives = positives
+        }, error => {
+            console.log(`Error al obtener los positivos notificados: ${error}`)
+        })
     },
     methods: {
         /**

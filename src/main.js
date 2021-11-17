@@ -23,6 +23,7 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
+// Montar el componente Vue en el elemento raíz del HTML
 new Vue({
   router,
   vuetify,

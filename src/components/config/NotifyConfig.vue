@@ -1,3 +1,4 @@
+<!-- COMPONENTE para la configuración de la notificación de positivos -->
 <template>
     <div class="notify-config">
         <!-- Configuracion del rastreo -->

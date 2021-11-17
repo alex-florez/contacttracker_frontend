@@ -1,3 +1,4 @@
+<!-- COMPONENTE para la configuración de la comprobación de contactos de riesgo -->
 <template>
     <div class="tracker-config">
         <!-- Márgenes de diferencia -->

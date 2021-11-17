@@ -1,3 +1,4 @@
+<!-- COMPONENTE que define el panel de estadísticas de los positivos notificados -->
 <template>
     <v-card class="card">
         <v-card-title>Positivos</v-card-title>
@@ -84,10 +85,8 @@ export default {
         }
     }),
     created() {
-        setTimeout(() => {
-            /* Cargar estadísticas de positivos */
-            this.update(this.lastDays)
-        }, 2000)
+        /* Cargar estadísticas de positivos */
+        this.update(this.lastDays)
     },
     methods: {
         /**

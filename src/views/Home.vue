@@ -1,3 +1,4 @@
+<!-- VISTA de la pantalla de bienvenida -->
 <template>
   <div>
     <welcome />

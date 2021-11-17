@@ -1,3 +1,4 @@
+<!-- COMPONENTE que define un diálogo modal para mostrar el itinerario de un positivo en un mapa -->
 <template>
     <v-dialog v-model="open" width="1500">
         <v-card>

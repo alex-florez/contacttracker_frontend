@@ -1,3 +1,4 @@
+<!-- VISTA de las estadísticas del sistema -->
 <template>
     <div class="statistics">
         <h1>Estadísticas</h1>

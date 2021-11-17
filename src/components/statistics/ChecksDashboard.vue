@@ -1,3 +1,4 @@
+<!-- COMPONENTE que define el panel de estadísticas de comprobaciones realizadas -->
 <template>
     <v-card class="card">
         <v-card-title>Comprobaciones</v-card-title>
@@ -78,9 +79,7 @@ export default {
     }),
     created() {
         /* Cargar estadísticas de comprobaciones */
-        setTimeout(() => {
-            this.update(this.lastDays)
-        }, 2000)
+        this.update(this.lastDays)
     },
     methods: {
         /**

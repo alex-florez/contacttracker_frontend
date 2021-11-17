@@ -1,3 +1,4 @@
+<!-- COMPONENTE que define el panel de estadísticas de las instalaciones -->
 <template>
     <v-card class="card">
         <v-card-title>Descargas</v-card-title>
@@ -29,10 +30,7 @@ export default {
         }
     }),
     created() {
-        setTimeout(() => {
-            this.update(this.lastDays)
-        }, 3000)
-     
+        this.update(this.lastDays)
     },
     methods: {
         /**

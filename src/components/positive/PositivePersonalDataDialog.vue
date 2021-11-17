@@ -1,3 +1,4 @@
+<!-- COMPONENTE que define un diálogo para mostrar los datos personales de un positivo notificado -->
 <template>
     <v-dialog
         v-model="dialog"

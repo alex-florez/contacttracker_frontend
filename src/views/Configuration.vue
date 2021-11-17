@@ -1,3 +1,4 @@
+<!-- VISTA de la configuración del sistema -->
 <template>
     <div class="configuration">
         <h1>Configuración</h1>

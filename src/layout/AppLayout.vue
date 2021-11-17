@@ -1,3 +1,4 @@
+<!-- Define la infraestructura de la aplicación web -->
 <template>
     <v-app>
         <!-- APP BAR -->
@@ -5,9 +6,6 @@
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title>Contact Tracker</v-toolbar-title>
             <v-spacer></v-spacer>
-            <!-- <v-btn icon>
-                <v-icon>mdi-airplane</v-icon>
-            </v-btn> -->
         </v-app-bar>
 
         <!-- NAVIGATION DRAWER -->

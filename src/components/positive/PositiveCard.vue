@@ -1,3 +1,4 @@
+<!-- COMPONENTE que representa un CARD de un positivo notificado en el sistema -->
 <template>
     <v-card class="mb-4 ma-0 pa-0">
         <!-- Datos generales del positivo -->

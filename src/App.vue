@@ -1,3 +1,4 @@
+<!-- Componente Raíz de la aplicación WEB -->
 <template>
   <AppLayout />
 </template>
