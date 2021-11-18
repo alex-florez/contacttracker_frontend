@@ -85,8 +85,10 @@ export default {
         }
     }),
     created() {
-        /* Cargar estadísticas de positivos */
-        this.update(this.lastDays)
+        setTimeout(() => {
+            /* Cargar estadísticas de positivos */
+            this.update(this.lastDays)
+        }, 1000)
     },
     methods: {
         /**

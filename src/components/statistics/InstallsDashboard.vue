@@ -30,7 +30,9 @@ export default {
         }
     }),
     created() {
-        this.update(this.lastDays)
+        setTimeout(() => {
+            this.update(this.lastDays)
+        }, 1000)
     },
     methods: {
         /**

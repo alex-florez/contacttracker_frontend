@@ -78,8 +78,10 @@ export default {
         }
     }),
     created() {
-        /* Cargar estadísticas de comprobaciones */
-        this.update(this.lastDays)
+        setTimeout(() => {
+            /* Cargar estadísticas de comprobaciones */
+            this.update(this.lastDays)
+        }, 1000)
     },
     methods: {
         /**
